@@ -1,0 +1,11 @@
+spring.application.name=rest-api-gr3
+# postgre sql driver
+spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/rest-api-gr3
+spring.datasource.username=user
+spring.datasource.password=secret
+# drive
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+# disable springboot security
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
