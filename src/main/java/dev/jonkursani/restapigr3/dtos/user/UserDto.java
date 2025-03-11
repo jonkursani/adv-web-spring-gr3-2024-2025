@@ -1,17 +1,14 @@
-package dev.jonkursani.restapigr3.dtos;
+package dev.jonkursani.restapigr3.dtos.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
+public class UserDto {
+    private int id;
     private String name;
     private String email;
-//    private int createdBy;
-//    private LocalDateTime createdAt;
 }

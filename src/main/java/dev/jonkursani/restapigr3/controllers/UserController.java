@@ -1,11 +1,10 @@
 package dev.jonkursani.restapigr3.controllers;
 
-import dev.jonkursani.restapigr3.dtos.CreateUserRequest;
-import dev.jonkursani.restapigr3.dtos.UpdateUserRequest;
-import dev.jonkursani.restapigr3.dtos.UserDto;
+import dev.jonkursani.restapigr3.dtos.user.CreateUserRequest;
+import dev.jonkursani.restapigr3.dtos.user.UpdateUserRequest;
+import dev.jonkursani.restapigr3.dtos.user.UserDto;
 import dev.jonkursani.restapigr3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

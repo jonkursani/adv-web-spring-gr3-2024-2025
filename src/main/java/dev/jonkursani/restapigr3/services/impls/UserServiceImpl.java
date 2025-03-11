@@ -1,13 +1,12 @@
 package dev.jonkursani.restapigr3.services.impls;
 
-import dev.jonkursani.restapigr3.dtos.CreateUserRequest;
-import dev.jonkursani.restapigr3.dtos.UpdateUserRequest;
-import dev.jonkursani.restapigr3.dtos.UserDto;
+import dev.jonkursani.restapigr3.dtos.user.CreateUserRequest;
+import dev.jonkursani.restapigr3.dtos.user.UpdateUserRequest;
+import dev.jonkursani.restapigr3.dtos.user.UserDto;
 import dev.jonkursani.restapigr3.entities.User;
 import dev.jonkursani.restapigr3.repositories.UserRepository;
 import dev.jonkursani.restapigr3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

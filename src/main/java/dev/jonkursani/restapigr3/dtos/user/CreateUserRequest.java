@@ -1,4 +1,4 @@
-package dev.jonkursani.restapigr3.dtos;
+package dev.jonkursani.restapigr3.dtos.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserRequest {
+public class CreateUserRequest {
     private String name;
     private String email;
-//    private int updatedBy;
-//    private LocalDateTime updatedAt;
+//    private int createdBy;
+//    private LocalDateTime createdAt;
 }
