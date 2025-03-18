@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateEmployeeRequest {
+public class UpdateEmployeeRequest {
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name must be less than {max} characters")
     private String firstName;

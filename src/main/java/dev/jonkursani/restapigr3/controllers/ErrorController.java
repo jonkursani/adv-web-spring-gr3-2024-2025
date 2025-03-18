@@ -33,4 +33,10 @@ public class ErrorController {
         var errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND.value(), null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class) // 409
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        var errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.CONFLICT.value(), null);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
 }
