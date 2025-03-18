@@ -2,6 +2,7 @@ package dev.jonkursani.restapigr3.controllers;
 
 import dev.jonkursani.restapigr3.dtos.department.CreateDepartmentRequest;
 import dev.jonkursani.restapigr3.dtos.department.DepartmentDto;
+import dev.jonkursani.restapigr3.dtos.department.DepartmentWithEmployeeCount;
 import dev.jonkursani.restapigr3.dtos.department.UpdateDepartmentRequest;
 import dev.jonkursani.restapigr3.services.DepartmentService;
 import jakarta.validation.Valid;
@@ -25,6 +26,11 @@ public class DepartmentController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<DepartmentDto> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<DepartmentDto> create(@Valid @RequestBody CreateDepartmentRequest request) {
 //        return new ResponseEntity<>(service.create(request), HttpStatus.CREATED); // 201
@@ -35,5 +41,16 @@ public class DepartmentController {
     public ResponseEntity<DepartmentDto> update(@PathVariable Integer id,
                                                 @Valid @RequestBody UpdateDepartmentRequest request) {
         return ResponseEntity.ok(service.update(id, request));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build(); // 204
+    }
+
+    @GetMapping("/employee-count")
+    public ResponseEntity<List<DepartmentWithEmployeeCount>> findAllWithEmployeeCount() {
+        return ResponseEntity.ok(service.findAllWithEmployeeCount());
     }
 }
