@@ -4,6 +4,7 @@ import dev.jonkursani.restapigr3.dtos.ErrorResponse;
 import dev.jonkursani.restapigr3.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -38,5 +39,17 @@ public class ErrorController {
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
         var errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.CONFLICT.value(), null);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalStateException(IllegalStateException e) {
+        var errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.CONFLICT.value(), null);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse); // 409
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException e) {
+        var errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.UNAUTHORIZED.value(), null);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse); // 401
     }
 }

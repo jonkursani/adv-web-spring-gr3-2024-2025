@@ -40,18 +40,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(CreateUserRequest request) {
-        var userToCreate = new User(0, request.getName(), request.getEmail(), true, LocalDateTime.now(), LocalDateTime.now());
-        var createdUser = repository.save(userToCreate);
-        return new UserDto(createdUser.getId(), createdUser.getName(), createdUser.getEmail());
+//        var userToCreate = new User(0, request.getName(), request.getEmail(), true, LocalDateTime.now(), LocalDateTime.now());
+//        var createdUser = repository.save(userToCreate);
+//        return new UserDto(createdUser.getId(), createdUser.getName(), createdUser.getEmail());
+        return null;
     }
 
     @Override
     public void update(int id, UpdateUserRequest request) {
-        var userToUpdate = findById(id);
-        if (userToUpdate != null) {
-            var updatedUser = new User(id, request.getName(), request.getEmail(), true, LocalDateTime.now(), LocalDateTime.now());
-            repository.save(updatedUser);
-        }
+//        var userToUpdate = findById(id);
+//        if (userToUpdate != null) {
+////            var updatedUser = new User(id, request.getName(), request.getEmail(), true, LocalDateTime.now(), LocalDateTime.now());
+////            repository.save(updatedUser);
+//        }
     }
 
     @Override
