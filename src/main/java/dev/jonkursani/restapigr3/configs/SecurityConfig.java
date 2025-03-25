@@ -19,6 +19,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static dev.jonkursani.restapigr3.entities.Permission.ADMIN_READ;
+import static dev.jonkursani.restapigr3.entities.Permission.MANAGER_READ;
+import static dev.jonkursani.restapigr3.entities.Role.ADMIN;
+import static dev.jonkursani.restapigr3.entities.Role.MANAGER;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -45,6 +50,16 @@ public class SecurityConfig {
                         // per request qe nuk duhet auth vendosen te request matchers
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/departments/**").permitAll()
+
+                        // hasRole vetem 1 rol, hasAnyRole mundeson me pas me shume se 1 rol
+                        .requestMatchers("/api/v1/management").hasAnyRole(ADMIN.name(), MANAGER.name())
+
+                        // per endpointin specifik
+                        // hasAuthority vetem 1 permission, hasAnyAuthority mundeson me pas me shume se 1 permission
+                        .requestMatchers(HttpMethod.GET, "/api/v1/management")
+                            .hasAnyAuthority(MANAGER_READ.name(), ADMIN_READ.name())
+
+
                         .anyRequest().authenticated() // per cdo request tjeter duhet me kon authenticated
                 )
                 .csrf(csrf -> csrf.disable()) // cross site request forgery
