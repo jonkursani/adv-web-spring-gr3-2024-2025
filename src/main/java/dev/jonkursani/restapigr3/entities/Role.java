@@ -14,12 +14,14 @@ import static dev.jonkursani.restapigr3.entities.Permission.*;
 public enum Role {
     ADMIN(Set.of(ADMIN_READ, ADMIN_WRITE, MANAGER_READ, MANAGER_WRITE)),
     MANAGER(Set.of(MANAGER_WRITE, MANAGER_READ)),
+    EMPLOYEE(Set.of(EMPLOYEE_WRITE, EMPLOYEE_READ)),
     USER(Collections.emptySet());
 
     @Getter
     // Liste me permission
     private final Set<Permission> permissions;
 
+    // per mi tregu spring security cilat permission (authority) i ka ky rol
     public List<SimpleGrantedAuthority> getAuthorities() {
         var authority = new java.util.ArrayList<>(
                 getPermissions().stream()

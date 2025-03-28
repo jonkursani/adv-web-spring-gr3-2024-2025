@@ -6,9 +6,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Permission {
     ADMIN_READ("admin:read"),
-    ADMIN_WRITE("admin:write"),
+    ADMIN_WRITE("admin:write"), // post, put, delete
     MANAGER_READ("manager:read"),
-    MANAGER_WRITE("manager:write");
+    MANAGER_WRITE("manager:write"),
+
+    EMPLOYEE_READ("employee:read"),
+    EMPLOYEE_WRITE("employee:write"), // post, put, delete
+
+    ;
 
     @Getter
     private final String permission;

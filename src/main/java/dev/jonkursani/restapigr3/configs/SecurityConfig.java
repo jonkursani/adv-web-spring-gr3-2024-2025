@@ -19,10 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static dev.jonkursani.restapigr3.entities.Permission.ADMIN_READ;
-import static dev.jonkursani.restapigr3.entities.Permission.MANAGER_READ;
-import static dev.jonkursani.restapigr3.entities.Role.ADMIN;
-import static dev.jonkursani.restapigr3.entities.Role.MANAGER;
+import static dev.jonkursani.restapigr3.entities.Permission.*;
+import static dev.jonkursani.restapigr3.entities.Role.*;
 
 @Configuration
 @EnableWebSecurity
@@ -52,12 +50,37 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/departments/**").permitAll()
 
                         // hasRole vetem 1 rol, hasAnyRole mundeson me pas me shume se 1 rol
-                        .requestMatchers("/api/v1/management").hasAnyRole(ADMIN.name(), MANAGER.name())
+                        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
                         // per endpointin specifik
                         // hasAuthority vetem 1 permission, hasAnyAuthority mundeson me pas me shume se 1 permission
-                        .requestMatchers(HttpMethod.GET, "/api/v1/management")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/management/**")
                             .hasAnyAuthority(MANAGER_READ.name(), ADMIN_READ.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/management/**")
+                            .hasAnyAuthority(ADMIN_WRITE.name(), MANAGER_WRITE.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/management/**")
+                            .hasAnyAuthority(ADMIN_WRITE.name(), MANAGER_WRITE.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/management/**")
+                            .hasAnyAuthority(ADMIN_WRITE.name(), MANAGER_WRITE.name())
+
+                        // me siguru controllerin komplet
+//                        .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
+//
+//                        // siguro routes specifike me permission
+//                        .requestMatchers(HttpMethod.GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
+//                        .requestMatchers(HttpMethod.POST, "/api/v1/admin/**").hasAuthority(ADMIN_WRITE.name())
+//                        .requestMatchers(HttpMethod.PUT, "/api/v1/admin/**").hasAuthority(ADMIN_WRITE.name())
+//                        .requestMatchers(HttpMethod.DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_WRITE.name())
+
+                        // employee
+                        .requestMatchers("/api/v1/employees/**")
+                            .hasAnyRole(ADMIN.name(), MANAGER.name(), EMPLOYEE.name())
+
+                        // per endpointin specifik
+                        .requestMatchers(HttpMethod.GET, "/api/v1/employees/**")
+                            .hasAnyAuthority(EMPLOYEE_READ.name(), ADMIN_READ.name(), MANAGER_READ.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/employees/**")
+                            .hasAnyAuthority(EMPLOYEE_WRITE.name(), ADMIN_WRITE.name(), MANAGER_WRITE.name())
 
 
                         .anyRequest().authenticated() // per cdo request tjeter duhet me kon authenticated
