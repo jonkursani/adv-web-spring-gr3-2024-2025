@@ -86,6 +86,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated() // per cdo request tjeter duhet me kon authenticated
                 )
                 .csrf(csrf -> csrf.disable()) // cross site request forgery
+                .cors(cors -> {}) // Enable CORS with the bean from CorsConfig
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -97,18 +98,18 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         var user = new AppUserDetailsService(userRepository);
 
-        String email = "user@test.com";
-        userRepository.findByEmail(email)
-                .orElseGet(() -> {
-                    var newUser = User.builder()
-                            .name("User")
-                            .email(email)
-                            .password(passwordEncoder().encode("password"))
-                            .active(true)
-                            .build();
-
-                    return userRepository.save(newUser);
-                });
+//        String email = "user@test.com";
+//        userRepository.findByEmail(email)
+//                .orElseGet(() -> {
+//                    var newUser = User.builder()
+//                            .name("User")
+//                            .email(email)
+//                            .password(passwordEncoder().encode("password"))
+//                            .active(true)
+//                            .build();
+//
+//                    return userRepository.save(newUser);
+//                });
 
         return user;
     }
