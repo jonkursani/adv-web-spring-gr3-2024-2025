@@ -98,18 +98,19 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         var user = new AppUserDetailsService(userRepository);
 
-//        String email = "user@test.com";
-//        userRepository.findByEmail(email)
-//                .orElseGet(() -> {
-//                    var newUser = User.builder()
-//                            .name("User")
-//                            .email(email)
-//                            .password(passwordEncoder().encode("password"))
-//                            .active(true)
-//                            .build();
-//
-//                    return userRepository.save(newUser);
-//                });
+        String email = "user@test.com";
+        userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    var newUser = User.builder()
+                            .name("User")
+                            .email(email)
+                            .password(passwordEncoder().encode("password"))
+                            .active(true)
+                            .role(USER)
+                            .build();
+
+                    return userRepository.save(newUser);
+                });
 
         return user;
     }
