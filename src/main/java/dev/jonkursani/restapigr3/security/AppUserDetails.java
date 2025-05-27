@@ -33,4 +33,8 @@ public class AppUserDetails implements UserDetails {
     public int getId() {
         return user.getId();
     }
+
+    public User getUser() {
+        return user;
+    }
 }
