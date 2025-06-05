@@ -8,9 +8,11 @@ import dev.jonkursani.restapigr3.services.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -31,16 +33,22 @@ public class DepartmentController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<DepartmentDto> create(@Valid @RequestBody CreateDepartmentRequest request) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<DepartmentDto> create(
+            @RequestPart("data") @Valid CreateDepartmentRequest request,
+            @RequestPart(value = "image", required = false) MultipartFile imageFile
+    ) {
 //        return new ResponseEntity<>(service.create(request), HttpStatus.CREATED); // 201
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request, imageFile));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DepartmentDto> update(@PathVariable Integer id,
-                                                @Valid @RequestBody UpdateDepartmentRequest request) {
-        return ResponseEntity.ok(service.update(id, request));
+    public ResponseEntity<DepartmentDto> update(
+            @PathVariable Integer id,
+            @RequestPart("data") @Valid UpdateDepartmentRequest request,
+            @RequestPart(value = "image", required = false) MultipartFile imageFile
+    ) {
+        return ResponseEntity.ok(service.update(id, request, imageFile));
     }
 
     @DeleteMapping("{id}")

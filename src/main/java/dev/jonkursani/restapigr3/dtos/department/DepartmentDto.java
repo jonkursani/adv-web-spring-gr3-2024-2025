@@ -11,4 +11,5 @@ public class DepartmentDto {
     private Integer id;
     private String name;
     private String location;
+    private String imagePath;
 }

@@ -48,6 +48,7 @@ public class SecurityConfig {
                         // per request qe nuk duhet auth vendosen te request matchers
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/departments/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
 
                         // hasRole vetem 1 rol, hasAnyRole mundeson me pas me shume se 1 rol
                         .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())

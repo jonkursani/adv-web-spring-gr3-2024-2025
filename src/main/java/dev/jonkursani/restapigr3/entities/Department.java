@@ -29,6 +29,9 @@ public class Department {
     @Column(name = "location", length = 100)
     private String location;
 
+    @Column(name = "image_path", length = 255)
+    private String imagePath;
+
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees = new LinkedHashSet<>();
 }
